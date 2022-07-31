@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tasks Tracker{% endblock %}
+
+{% block body %}
+    {% dump(task) %}
+    <main class="container">
+        {{ include('common/flash-messages.html.twig') }}
+        <div class="row">
+            <div class="bg-light p-5 rounded mt-2 col-12">
+                <h1>Time tracker</h1>
+                {% if task|default %}
+                    <div class="row p-2 task">
+                        <div class="col-12 col-lg-6 pt-2">
+                            {{ task.getName() }}
+                        </div>
+                        <div id="chronometer" data-total-time="{{ task.getTotalTime() }}"
+                             class="col-12 col-lg-3 pt-2">
+                            <span id="hours">00</span>h
+                            <span id="minutes">00</span>m
+                            <span id="seconds">00</span>s
+                        </div>
+                        <div class="col-12 col-lg-3">
+                            <button id="stop-btn" type="button" class="btn btm-lg btn-danger"
+                                    data-id="{{ task.getName() }}">Stop
+                            </button>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="lead">You aren't working in any task, and laziness isn't a virtue :-D</p>
+                {% endif %}
+                {% if not form.vars.valid %}
+                    <div class="alert alert-error">
+                        {{ form_errors(form) }}
+                    </div>
+                {% endif %}
+                <button type="button" class="btn btn-lg btn-primary mt-2" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">Track a task &raquo;
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for input the task name -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Track a task!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    {{ form_label(form.name) }}
+                    {{ form_widget(form.name) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    {{ form_widget(form.save) }}
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

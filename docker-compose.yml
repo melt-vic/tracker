@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  php:
+    container_name: www
+    build: docker/php
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./www:/var/www/html
+      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+  db:
+    container_name: db
+    build: docker/mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: tracker
+      MYSQL_USER: pipo
+      MYSQL_PASSWORD: Abc-9gHsvB6.
+      MYSQL_ROOT_PASSWORD: r6rTgVb3.4$h
+    volumes:
+      - ./docker/db:/var/lib/mysql
+volumes:
+  php:
+  db:

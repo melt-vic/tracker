@@ -1,0 +1,13 @@
+<div class="row errorRow mt-2">
+    {% block flashMessage %}
+        {# dump(app.flashes) #}
+        {% for label, messages in app.flashes(['success', 'warning', 'danger'])  %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                    <strong>{{ message }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endblock %}
+</div>

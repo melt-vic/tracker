@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tasks overview{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <h1>Overview</h1>
+        <div class="d-none d-md-block">
+            <div class="row">
+                <div class="col-3 bg-info">Name</div>
+                <div class="col-3 bg-info">Started at</div>
+                <div class="col-3 bg-info">Last time</div>
+                <div class="col-3 bg-info">Total time</div>
+            </div>
+        </div>
+        {% if tasks|default %}
+            {# dump(tasks) #}
+            {% for task in tasks.tasks %}
+                {% set color = task.isWorkingOnIt()? 'warning' : 'success' %}
+                <div class="row mb-2 mb-md-0">
+                    <div class="d-inline d-md-none col-4 bg-info">Name</div>
+                    <div class="col-8 col-md-3 themed-grid-col bg-{{ color }}">{{ task.getName() }}</div>
+                    <div class="d-inline d-md-none col-4 bg-info">Started at</div>
+                    <div class="col-8 col-md-3 themed-grid-col bg-{{ color }}">{{ task.getStartedAt()|date('d-m-Y H:i:s') }}</div>
+                    <div class="d-inline d-md-none col-4 bg-info">Last time</div>
+                    <div class="col-8 col-md-3 themed-grid-col bg-{{ color }}">{{ task.getStoppedAt()|date('d-m-Y H:i:s') }}</div>
+                    <div class="d-inline d-md-none col-4 bg-info">Total hours</div>
+                    <div class="col-8 col-md-3 themed-grid-col bg-{{ color }}">{{ (task.getTotalTime() / 60 / 60)|round(2) }} h</div>
+                </div>
+            {% endfor %}
+            <p><strong>Today total time:</strong> {{ (tasks.todayTime.totalTime / 60 / 60)|round(2) }} h</p>
+        {% else %}
+            <p>You haven't created any tasks yet!</p>
+        {% endif %}
+    </main>
+{% endblock %}
