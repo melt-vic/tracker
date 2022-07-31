@@ -12,7 +12,7 @@ class OverviewCommand extends Command
 {
     private TaskService $taskService;
     protected static $defaultDescription = 'Shows a report of all tasks.';
-    protected static $defaultName = 'app:overviewTask';
+    protected static $defaultName = 'app:overviewTasks';
 
     public function __construct(TaskService $taskService)
     {

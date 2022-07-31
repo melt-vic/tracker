@@ -13,7 +13,7 @@ you have worked on, with the total hours you worked today at the report's end.
 The same options that are available via web, are also available via the command line. There
 are two commands:
 
-- php bin/console app:addTask This command expects three mandatory parameters:
+- php bin/console **app:addTask** This command expects three mandatory parameters:
   - The task name
   - When the task began in the format Y-m-d H:i:s
   - When the task ended in the format Y-m-d H:i:s
@@ -22,9 +22,9 @@ For instance:
 
     php bin/console app:addTask "Fixing bugs" '2022-07-30 20:15:00' '2022-07-30 20:55:00'
   
-- php bin/console app:overviewTask This command returns a report with the same information
+- php bin/console **app:overviewTasks** This command returns a report with the same information
 available in the website.
 
 Those commands must be executed inside the Docker container named "www":
 
-docker exec -it www bash
+`docker exec -it www bash`
